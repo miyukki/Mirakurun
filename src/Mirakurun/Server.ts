@@ -58,13 +58,8 @@ class Server {
         app.use(bodyParser.json());
 
         app.use((req: express.Request, res: express.Response, next) => {
-
-            if (ip.isPrivate(req.ip) === true || !req.ip) {
-                res.setHeader("Server", "Mirakurun/" + pkg.version);
-                next();
-            } else {
-                res.status(403).end();
-            }
+            res.setHeader("Server", "Mirakurun/" + pkg.version);
+            next();
         });
 
         const api = yaml.safeLoad(fs.readFileSync("api.yml", "utf8"));
